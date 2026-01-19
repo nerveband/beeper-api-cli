@@ -19,16 +19,31 @@ const (
 )
 
 // FormatChats formats a list of chats according to the specified format
-func FormatChats(chats []api.Chat, format Format) (string, error) {
+func FormatChats(chats []api.Chat, format Format) string {
+	if len(chats) == 0 {
+		switch format {
+		case FormatJSON:
+			return "[]\n"
+		case FormatText, FormatMarkdown:
+			return "No chats found.\n"
+		}
+	}
+
 	switch format {
 	case FormatJSON:
-		return formatChatsJSON(chats)
+		data, err := formatChatsJSON(chats)
+		if err != nil {
+			return fmt.Sprintf("Error formatting JSON: %v\n", err)
+		}
+		return data
 	case FormatText:
-		return formatChatsText(chats), nil
+		return formatChatsText(chats)
 	case FormatMarkdown:
-		return formatChatsMarkdown(chats), nil
+		return formatChatsMarkdown(chats)
 	default:
-		return "", fmt.Errorf("unsupported format: %s", format)
+		// Default to JSON for unknown formats
+		data, _ := formatChatsJSON(chats)
+		return data
 	}
 }
 
@@ -69,16 +84,31 @@ func formatChatsMarkdown(chats []api.Chat) string {
 }
 
 // FormatMessages formats a list of messages according to the specified format
-func FormatMessages(messages []api.Message, format Format) (string, error) {
+func FormatMessages(messages []api.Message, format Format) string {
+	if len(messages) == 0 {
+		switch format {
+		case FormatJSON:
+			return "[]\n"
+		case FormatText, FormatMarkdown:
+			return "No messages found.\n"
+		}
+	}
+
 	switch format {
 	case FormatJSON:
-		return formatMessagesJSON(messages)
+		data, err := formatMessagesJSON(messages)
+		if err != nil {
+			return fmt.Sprintf("Error formatting JSON: %v\n", err)
+		}
+		return data
 	case FormatText:
-		return formatMessagesText(messages), nil
+		return formatMessagesText(messages)
 	case FormatMarkdown:
-		return formatMessagesMarkdown(messages), nil
+		return formatMessagesMarkdown(messages)
 	default:
-		return "", fmt.Errorf("unsupported format: %s", format)
+		// Default to JSON
+		data, _ := formatMessagesJSON(messages)
+		return data
 	}
 }
 
@@ -93,8 +123,9 @@ func formatMessagesJSON(messages []api.Message) (string, error) {
 func formatMessagesText(messages []api.Message) string {
 	var sb strings.Builder
 	for _, msg := range messages {
+		timestamp := time.Unix(msg.Timestamp, 0)
 		sb.WriteString(fmt.Sprintf("[%s] %s: %s\n",
-			msg.Timestamp.Format("2006-01-02 15:04:05"),
+			timestamp.Format("2006-01-02 15:04:05"),
 			msg.Sender,
 			msg.Text,
 		))
@@ -106,11 +137,12 @@ func formatMessagesMarkdown(messages []api.Message) string {
 	var sb strings.Builder
 	sb.WriteString("# Messages\n\n")
 	for _, msg := range messages {
-		sb.WriteString(fmt.Sprintf("### %s - %s\n\n",
+		timestamp := time.Unix(msg.Timestamp, 0)
+		sb.WriteString(fmt.Sprintf("**%s** - %s\n\n",
 			msg.Sender,
-			msg.Timestamp.Format("2006-01-02 15:04:05"),
+			timestamp.Format("2006-01-02 15:04:05"),
 		))
-		sb.WriteString(fmt.Sprintf("%s\n\n", msg.Text))
+		sb.WriteString(fmt.Sprintf("> %s\n\n", msg.Text))
 		sb.WriteString("---\n\n")
 	}
 	return sb.String()

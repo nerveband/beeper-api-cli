@@ -12,6 +12,7 @@ import (
 // Client handles communication with Beeper Desktop API
 type Client struct {
 	baseURL    string
+	authToken  string
 	httpClient *http.Client
 }
 
@@ -23,6 +24,11 @@ func NewClient(baseURL string) *Client {
 			Timeout: 30 * time.Second,
 		},
 	}
+}
+
+// SetAuthToken sets the Bearer authentication token
+func (c *Client) SetAuthToken(token string) {
+	c.authToken = token
 }
 
 // Ping checks if the API is reachable
@@ -60,6 +66,11 @@ func (c *Client) doRequest(method, path string, body interface{}) ([]byte, error
 		req.Header.Set("Content-Type", "application/json")
 	}
 
+	// Add auth token if set
+	if c.authToken != "" {
+		req.Header.Set("Authorization", "Bearer "+c.authToken)
+	}
+
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to perform request: %w", err)
@@ -90,12 +101,12 @@ type Chat struct {
 
 // Message represents a Beeper message
 type Message struct {
-	ID        string    `json:"id"`
-	ChatID    string    `json:"chat_id"`
-	Sender    string    `json:"sender"`
-	Text      string    `json:"text"`
-	Timestamp time.Time `json:"timestamp"`
-	Type      string    `json:"type"`
+	ID        string `json:"id"`
+	ChatID    string `json:"chat_id"`
+	Sender    string `json:"sender"`
+	Text      string `json:"text"`
+	Timestamp int64  `json:"timestamp"` // Unix timestamp
+	Type      string `json:"type"`
 }
 
 // SendMessageRequest represents a message send request
@@ -156,8 +167,8 @@ func (c *Client) ListMessages(chatID string, limit int) ([]Message, error) {
 	return messages, nil
 }
 
-// SendMessage sends a message to a chat
-func (c *Client) SendMessage(chatID, message string) (*SendMessageResponse, error) {
+// SendMessage sends a message to a chat and returns the message ID
+func (c *Client) SendMessage(chatID, message string) (string, error) {
 	req := SendMessageRequest{
 		ChatID:  chatID,
 		Message: message,
@@ -165,15 +176,15 @@ func (c *Client) SendMessage(chatID, message string) (*SendMessageResponse, erro
 
 	data, err := c.doRequest("POST", "/messages/send", req)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	var resp SendMessageResponse
 	if err := json.Unmarshal(data, &resp); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response: %w", err)
+		return "", fmt.Errorf("failed to unmarshal response: %w", err)
 	}
 
-	return &resp, nil
+	return resp.MessageID, nil
 }
 
 // SearchMessages searches for messages across all chats
