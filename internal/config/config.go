@@ -40,12 +40,8 @@ func Load() (*Config, error) {
 	viper.SetDefault("api_url", DefaultAPIURL)
 	viper.SetDefault("output_format", DefaultOutputFormat)
 
-	// Read config file if it exists
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
-			return nil, fmt.Errorf("failed to read config file: %w", err)
-		}
-	}
+	// Read config file if it exists (ignore if not found, use defaults)
+	_ = viper.ReadInConfig()
 
 	var cfg Config
 	if err := viper.Unmarshal(&cfg); err != nil {
