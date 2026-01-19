@@ -2,6 +2,8 @@
 
 A cross-platform command-line interface for the Beeper Desktop API. Built for programmatic access to Beeper conversations with LLM-friendly output formats.
 
+🚀 **[Quick Start Guide](QUICKSTART.md)** | 📚 **[API Documentation](API.md)** | 🔧 **[Examples](examples/)**
+
 ## Purpose
 
 While existing tools read the Beeper SQLite database directly, this CLI interfaces with the Beeper Desktop HTTP API to provide both read and write capabilities. This enables sending messages, managing conversations, and full bidirectional communication through Beeper's unified chat platform.
