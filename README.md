@@ -172,13 +172,6 @@ Different Beeper CLI tools have different strengths. **Use the best tool for you
 
 **Best for:** Automation, CI/CD, LLM integration, simple deployments
 
-### [beeper-tools](https://github.com/beeper/beeper-tools) 🔧
-**Official Beeper utilities**
-- Direct SQLite access
-- Read-only operations
-
-**Best for:** Official tools, basic SQLite queries
-
 ## Development
 
 ```bash
