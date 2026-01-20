@@ -18,14 +18,14 @@ type Config struct {
 	OutputFormat string `mapstructure:"output_format"`
 }
 
-// Load reads configuration from ~/.beeper-cli/config.yaml
+// Load reads configuration from ~/.beeper-api-cli/config.yaml
 func Load() (*Config, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	configDir := filepath.Join(home, ".beeper-cli")
+	configDir := filepath.Join(home, ".beeper-api-cli")
 	configFile := filepath.Join(configDir, "config.yaml")
 
 	// Create config directory if it doesn't exist
@@ -160,7 +160,7 @@ func GetConfigPath() string {
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(home, ".beeper-cli", "config.yaml")
+	return filepath.Join(home, ".beeper-api-cli", "config.yaml")
 }
 
 // LoadFromEnv loads configuration from environment variables

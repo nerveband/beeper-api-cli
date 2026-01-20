@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/nerveband/beeper-cli/internal/api"
-	"github.com/nerveband/beeper-cli/internal/output"
+	"github.com/nerveband/beeper-api-cli/internal/api"
+	"github.com/nerveband/beeper-api-cli/internal/output"
 )
 
 var chatsCmd = &cobra.Command{

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nerveband/beeper-cli/internal/api"
+	"github.com/nerveband/beeper-api-cli/internal/api"
 )
 
 // Format defines the output format type

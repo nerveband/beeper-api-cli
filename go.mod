@@ -1,4 +1,4 @@
-module github.com/nerveband/beeper-cli
+module github.com/nerveband/beeper-api-cli
 
 go 1.25.6
 

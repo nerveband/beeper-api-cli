@@ -1,4 +1,4 @@
-# Beeper CLI
+# Beeper API CLI
 
 A cross-platform command-line interface for the Beeper Desktop API. Built for programmatic access to Beeper conversations with LLM-friendly output formats.
 
@@ -21,17 +21,17 @@ While existing tools read the Beeper SQLite database directly, this CLI interfac
 ```bash
 # Download latest release for your platform
 # macOS (arm64)
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-darwin-arm64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-darwin-arm64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 
 # Linux (amd64)
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-linux-amd64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-linux-amd64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 
 # Or build from source
-go install github.com/nerveband/beeper-cli@latest
+go install github.com/nerveband/beeper-api-cli@latest
 ```
 
 ## Quick Start
@@ -58,7 +58,7 @@ beeper search --query "important meeting"
 
 ## Configuration
 
-The CLI stores configuration in `~/.beeper-cli/config.yaml`:
+The CLI stores configuration in `~/.beeper-api-cli/config.yaml`:
 
 ```yaml
 api_url: http://localhost:39867
@@ -124,21 +124,26 @@ Built with Go for:
 
 Uses Cobra for CLI framework and Viper for configuration management.
 
-## Comparison with beeper-tools
+## Inspiration & Related Tools
 
-The existing [beeper-tools](https://github.com/beeper/beeper-tools) provides read-only access via direct SQLite database queries. This CLI complements it by:
+This project was inspired by [KrauseFx/beeper-cli](https://github.com/KrauseFx/beeper-cli), a read-only tool that queries the Beeper SQLite database directly. While that tool provides excellent read-only functionality, beeper-api-cli takes a different approach:
 
-- Using the HTTP API instead of direct database access
-- Supporting write operations (sending messages, reactions)
-- Providing structured output formats optimized for LLM consumption
-- Enabling real-time operations without database locks
+- **API-based**: Uses the Beeper Desktop HTTP API instead of direct database access
+- **Read & Write**: Supports full bidirectional communication (sending messages, reactions, edits)
+- **LLM-Optimized**: Structured output formats designed for AI agent integration
+- **Real-time**: No database locks, enables concurrent operations
+
+### Other Beeper CLI Tools
+
+- **[salmonumbrella/beeper-cli](https://github.com/salmonumbrella/beeper-cli)** - Another SQLite-based CLI with different features
+- **[beeper-tools](https://github.com/beeper/beeper-tools)** - Official read-only tools via direct SQLite queries
 
 ## Development
 
 ```bash
 # Clone repository
-git clone https://github.com/nerveband/beeper-cli
-cd beeper-cli
+git clone https://github.com/nerveband/beeper-api-cli
+cd beeper-api-cli
 
 # Install dependencies
 go mod download

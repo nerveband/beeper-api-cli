@@ -5,9 +5,9 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/nerveband/beeper-cli/internal/api"
-	"github.com/nerveband/beeper-cli/internal/config"
-	"github.com/nerveband/beeper-cli/internal/output"
+	"github.com/nerveband/beeper-api-cli/internal/api"
+	"github.com/nerveband/beeper-api-cli/internal/config"
+	"github.com/nerveband/beeper-api-cli/internal/output"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use:   "beeper",
-	Short: "Beeper CLI - Command-line interface for Beeper Desktop API",
+	Short: "Beeper API CLI - Command-line interface for Beeper Desktop API",
 	Long: `A cross-platform CLI for the Beeper Desktop API.
 Provides LLM-friendly interfaces for reading and sending messages
 across all Beeper-supported chat networks.`,

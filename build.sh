@@ -4,7 +4,7 @@ set -e
 VERSION=${VERSION:-dev}
 OUTPUT_DIR="dist"
 
-echo "Building Beeper CLI ${VERSION}..."
+echo "Building Beeper API CLI ${VERSION}..."
 
 mkdir -p ${OUTPUT_DIR}
 
@@ -20,7 +20,7 @@ PLATFORMS=(
 for platform in "${PLATFORMS[@]}"; do
     OS=$(echo $platform | cut -d'/' -f1)
     ARCH=$(echo $platform | cut -d'/' -f2)
-    OUTPUT_NAME="beeper-${OS}-${ARCH}"
+    OUTPUT_NAME="beeper-api-${OS}-${ARCH}"
     
     if [ "$OS" = "windows" ]; then
         OUTPUT_NAME="${OUTPUT_NAME}.exe"

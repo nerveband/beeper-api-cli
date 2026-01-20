@@ -6,9 +6,9 @@ A cross-platform command-line interface for the Beeper Desktop API, built in Go.
 
 ## Repository
 
-**GitHub**: https://github.com/nerveband/beeper-cli
+**GitHub**: https://github.com/nerveband/beeper-api-cli
 
-**Latest Release**: v0.1.0 - https://github.com/nerveband/beeper-cli/releases/tag/v0.1.0
+**Latest Release**: v0.1.0 - https://github.com/nerveband/beeper-api-cli/releases/tag/v0.1.0
 
 ## Architecture
 
@@ -20,7 +20,7 @@ A cross-platform command-line interface for the Beeper Desktop API, built in Go.
 
 ### Project Structure
 ```
-beeper-cli/
+beeper-api-cli/
 ├── main.go                    # Entry point
 ├── cmd/                       # CLI commands
 │   ├── root.go               # Root command
@@ -120,8 +120,8 @@ beeper messages list --chat-id CHAT --output markdown > messages.md
 
 ### Build from Source
 ```bash
-git clone https://github.com/nerveband/beeper-cli
-cd beeper-cli
+git clone https://github.com/nerveband/beeper-api-cli
+cd beeper-api-cli
 go build -o beeper .
 ```
 
@@ -162,28 +162,28 @@ git push origin v0.2.0
 ## Installation
 
 ### Pre-built Binaries
-Download from: https://github.com/nerveband/beeper-cli/releases/latest
+Download from: https://github.com/nerveband/beeper-api-cli/releases/latest
 
 ```bash
 # macOS (arm64)
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-darwin-arm64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-darwin-arm64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 
 # Linux (amd64)
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-linux-amd64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-linux-amd64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 ```
 
 ### From Source
 ```bash
-go install github.com/nerveband/beeper-cli@latest
+go install github.com/nerveband/beeper-api-cli@latest
 ```
 
 ## Configuration
 
-Default config location: `~/.beeper-cli/config.yaml`
+Default config location: `~/.beeper-api-cli/config.yaml`
 
 ```yaml
 api_url: http://localhost:39867
@@ -231,9 +231,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Links
 
-- **Repository**: https://github.com/nerveband/beeper-cli
-- **Issues**: https://github.com/nerveband/beeper-cli/issues
-- **Releases**: https://github.com/nerveband/beeper-cli/releases
+- **Repository**: https://github.com/nerveband/beeper-api-cli
+- **Issues**: https://github.com/nerveband/beeper-api-cli/issues
+- **Releases**: https://github.com/nerveband/beeper-api-cli/releases
 - **Beeper Desktop**: https://www.beeper.com/
 
 ## Credits

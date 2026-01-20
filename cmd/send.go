@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/nerveband/beeper-cli/internal/output"
+	"github.com/nerveband/beeper-api-cli/internal/output"
 )
 
 var sendCmd = &cobra.Command{

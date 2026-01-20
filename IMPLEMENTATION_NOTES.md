@@ -34,7 +34,7 @@ Internal documentation for developers working on Beeper CLI.
 ## Project Structure Rationale
 
 ```
-beeper-cli/
+beeper-api-cli/
 ├── main.go              # Minimal entry point
 ├── cmd/                 # Command implementations
 ├── internal/            # Private packages

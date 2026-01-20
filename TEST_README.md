@@ -169,7 +169,7 @@ go tool cover -html=coverage.out
 ## Test Structure
 
 ```
-beeper-cli/
+beeper-api-cli/
 ├── internal/
 │   ├── api/
 │   │   ├── client.go

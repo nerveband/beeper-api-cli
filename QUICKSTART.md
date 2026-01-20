@@ -13,32 +13,32 @@ Get up and running with Beeper CLI in under 5 minutes.
 
 **macOS (Apple Silicon)**
 ```bash
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-darwin-arm64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-darwin-arm64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 ```
 
 **macOS (Intel)**
 ```bash
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-darwin-amd64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-darwin-amd64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 ```
 
 **Linux (amd64)**
 ```bash
-curl -L https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-linux-amd64 -o beeper
+curl -L https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-linux-amd64 -o beeper
 chmod +x beeper
 sudo mv beeper /usr/local/bin/
 ```
 
 **Windows**
-Download from: https://github.com/nerveband/beeper-cli/releases/latest/download/beeper-windows-amd64.exe
+Download from: https://github.com/nerveband/beeper-api-cli/releases/latest/download/beeper-api-windows-amd64.exe
 
 ### Option B: Build from Source
 ```bash
-git clone https://github.com/nerveband/beeper-cli
-cd beeper-cli
+git clone https://github.com/nerveband/beeper-api-cli
+cd beeper-api-cli
 go build -o beeper .
 sudo mv beeper /usr/local/bin/
 ```
@@ -135,13 +135,13 @@ beeper chats list --output text
 ### Commands not working
 - Verify installation: `beeper --help`
 - Check you're using the latest version
-- Open an issue: https://github.com/nerveband/beeper-cli/issues
+- Open an issue: https://github.com/nerveband/beeper-api-cli/issues
 
 ## Getting Help
 
 - **Command Help**: `beeper [command] --help`
-- **GitHub Issues**: https://github.com/nerveband/beeper-cli/issues
-- **Documentation**: https://github.com/nerveband/beeper-cli
+- **GitHub Issues**: https://github.com/nerveband/beeper-api-cli/issues
+- **Documentation**: https://github.com/nerveband/beeper-api-cli
 
 ## Example Workflow
 

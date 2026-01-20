@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nerveband/beeper-cli/internal/api"
+	"github.com/nerveband/beeper-api-cli/internal/api"
 	"github.com/stretchr/testify/assert"
 )
 
