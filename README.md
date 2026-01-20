@@ -124,19 +124,60 @@ Built with Go for:
 
 Uses Cobra for CLI framework and Viper for configuration management.
 
-## Inspiration & Related Tools
+## Philosophy & Design Goals
 
-This project was inspired by [KrauseFx/beeper-cli](https://github.com/KrauseFx/beeper-cli), a read-only tool that queries the Beeper SQLite database directly. While that tool provides excellent read-only functionality, beeper-api-cli takes a different approach:
+**beeper-api-cli** is designed for simplicity and minimal dependencies:
 
-- **API-based**: Uses the Beeper Desktop HTTP API instead of direct database access
-- **Read & Write**: Supports full bidirectional communication (sending messages, reactions, edits)
-- **LLM-Optimized**: Structured output formats designed for AI agent integration
-- **Real-time**: No database locks, enables concurrent operations
+- **Pure API approach** - No SQLite dependencies, no keyring requirements
+- **Simple authentication** - Manual token configuration (no OAuth flow)
+- **Focused feature set** - Core read/write operations for programmatic access
+- **LLM-friendly** - JSON/text/markdown output optimized for AI agents
+- **Single binary** - Easy cross-compilation and distribution
 
-### Other Beeper CLI Tools
+This makes it ideal for:
+- CI/CD pipelines and automation scripts
+- LLM/AI agent integrations
+- Environments where you want minimal dependencies
+- Quick setup without browser auth flows
 
-- **[salmonumbrella/beeper-cli](https://github.com/salmonumbrella/beeper-cli)** - Another SQLite-based CLI with different features
-- **[beeper-tools](https://github.com/beeper/beeper-tools)** - Official read-only tools via direct SQLite queries
+## Choosing the Right Tool
+
+Different Beeper CLI tools have different strengths. **Use the best tool for your use case!**
+
+### [salmonumbrella/beeper-cli](https://github.com/salmonumbrella/beeper-cli) 🌟
+**Full-featured terminal client with desktop integration**
+- OAuth browser authentication with keyring storage
+- Real-time message streaming (tail/follow mode)
+- Desktop control (focus window, navigate chats, pre-fill drafts)
+- Advanced features: reminders, bulk archive, inbox view
+- DB backend for faster local search
+- Template output and JQ integration
+
+**Best for:** Interactive terminal use, power users, desktop integration
+
+### [KrauseFx/beeper-cli](https://github.com/KrauseFx/beeper-cli) 📖
+**Read-only SQLite access** (original inspiration for this project)
+- Direct database queries
+- No API dependencies
+
+**Best for:** Quick local reads, offline access
+
+### beeper-api-cli (this tool) 🚀
+**Lightweight API client for automation**
+- Pure HTTP API (no SQLite, no keyring)
+- Write operations (send, edit, react, delete)
+- Simple manual token auth
+- LLM-optimized JSON output
+- Minimal dependencies
+
+**Best for:** Automation, CI/CD, LLM integration, simple deployments
+
+### [beeper-tools](https://github.com/beeper/beeper-tools) 🔧
+**Official Beeper utilities**
+- Direct SQLite access
+- Read-only operations
+
+**Best for:** Official tools, basic SQLite queries
 
 ## Development
 
