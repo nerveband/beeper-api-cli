@@ -10,6 +10,7 @@ import (
 
 // TestSearchCommand tests the search command
 func TestSearchCommand(t *testing.T) {
+	t.Skip("Integration test - requires live Beeper API")
 	apiURL := os.Getenv("BEEPER_API_URL")
 	token := os.Getenv("BEEPER_TOKEN")
 	
@@ -32,6 +33,7 @@ func TestSearchCommand(t *testing.T) {
 
 // TestSearchCommand_Text tests text output for search
 func TestSearchCommand_Text(t *testing.T) {
+	t.Skip("Integration test - requires live Beeper API")
 	apiURL := os.Getenv("BEEPER_API_URL")
 	token := os.Getenv("BEEPER_TOKEN")
 	
