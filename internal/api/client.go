@@ -167,6 +167,11 @@ func (c *Client) SendMessage(chatID, message string) (string, error) {
 	return resp.ID, nil
 }
 
+// SearchResponse represents the API response for searching messages
+type SearchResponse struct {
+	Items []Message `json:"items"`
+}
+
 // SearchMessages searches for messages across all chats
 func (c *Client) SearchMessages(query string, limit int) ([]Message, error) {
 	path := fmt.Sprintf("/v1/messages/search?q=%s&limit=%d", query, limit)
@@ -175,12 +180,12 @@ func (c *Client) SearchMessages(query string, limit int) ([]Message, error) {
 		return nil, err
 	}
 
-	var messages []Message
-	if err := json.Unmarshal(data, &messages); err != nil {
+	var resp SearchResponse
+	if err := json.Unmarshal(data, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal messages: %w", err)
 	}
 
-	return messages, nil
+	return resp.Items, nil
 }
 
 // DiscoverAPI attempts to auto-discover the Beeper Desktop API URL

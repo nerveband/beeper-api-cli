@@ -1,5 +1,9 @@
 # Beeper API CLI
 
+<p align="center">
+  <img src="assets/demo.gif" alt="Beeper API CLI Demo" width="800">
+</p>
+
 A cross-platform command-line interface for the Beeper Desktop API. Built for programmatic access to Beeper conversations with LLM-friendly output formats.
 
 🚀 **[Quick Start Guide](QUICKSTART.md)** | 📚 **[API Documentation](API.md)** | 🔧 **[Examples](examples/)**
@@ -14,6 +18,7 @@ While existing tools read the Beeper SQLite database directly, this CLI interfac
 - **LLM-Friendly Output**: JSON, plain text, and markdown formats optimized for AI agent consumption
 - **Auto-Discovery**: Automatically detect Beeper Desktop API endpoint when available
 - **Cross-Platform**: Single binary for Linux, macOS, and Windows
+- **Self-Upgrade**: Built-in upgrade command to update to the latest version
 - **Pipeable**: Unix-friendly design for scripting and tool composition
 
 ## Installation
@@ -81,6 +86,10 @@ output_format: json  # json, text, markdown
 - `edit` - Edit existing message
 - `delete` - Delete message
 - `read` - Mark messages as read
+
+### Utility Commands
+- `version` - Display version and build information
+- `upgrade` - Self-upgrade to the latest release from GitHub
 
 ## Output Formats
 

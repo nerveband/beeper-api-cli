@@ -13,14 +13,14 @@ import (
 var (
 	cfg          *config.Config
 	outputFormat string
+	// Version is set at build time via ldflags
+	Version = "dev"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "beeper",
 	Short: "Beeper API CLI - Command-line interface for Beeper Desktop API",
-	Long: `A cross-platform CLI for the Beeper Desktop API.
-Provides LLM-friendly interfaces for reading and sending messages
-across all Beeper-supported chat networks.`,
+	Long:  BannerWithVersion() + "\nA cross-platform CLI for the Beeper Desktop API.\nProvides LLM-friendly interfaces for reading and sending messages\nacross all Beeper-supported chat networks.",
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		var err error
 		cfg, err = config.Load()

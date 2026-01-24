@@ -36,6 +36,6 @@ var searchCmd = &cobra.Command{
 
 func init() {
 	searchCmd.Flags().String("query", "", "Search query text")
-	searchCmd.Flags().IntVar(&searchLimit, "limit", 100, "Maximum number of results")
+	searchCmd.Flags().IntVar(&searchLimit, "limit", 20, "Maximum number of results (max: 20)")
 	rootCmd.AddCommand(searchCmd)
 }
