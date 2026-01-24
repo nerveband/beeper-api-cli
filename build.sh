@@ -28,7 +28,7 @@ for platform in "${PLATFORMS[@]}"; do
     
     echo "Building for ${OS}/${ARCH}..."
     GOOS=$OS GOARCH=$ARCH go build -o "${OUTPUT_DIR}/${OUTPUT_NAME}" \
-        -ldflags "-X main.Version=${VERSION}" \
+        -ldflags "-X github.com/nerveband/beeper-api-cli/cmd.Version=${VERSION}" \
         .
 done
 
