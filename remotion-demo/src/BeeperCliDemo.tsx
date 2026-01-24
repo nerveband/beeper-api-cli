@@ -76,15 +76,6 @@ export const BeeperCliDemo: React.FC = () => {
   const typewriterDuration = 30;
   const outputDelay = 35;
   const outputFadeIn = 12;
-  const fadeOutStart = framesPerSequence - 10;
-
-  // Sequence transition opacity
-  const sequenceOpacity = interpolate(
-    frameInSequence,
-    [0, 10, fadeOutStart, framesPerSequence],
-    [0, 1, 1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
 
   return (
     <AbsoluteFill
@@ -136,7 +127,6 @@ export const BeeperCliDemo: React.FC = () => {
           left: "50%",
           transform: "translateX(-50%)",
           width: 1760,
-          opacity: sequenceOpacity,
         }}
       >
         <TerminalWindow>
@@ -192,7 +182,6 @@ export const BeeperCliDemo: React.FC = () => {
             fontWeight: 600,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            opacity: sequenceOpacity,
           }}
         >
           {currentSequence.description}
