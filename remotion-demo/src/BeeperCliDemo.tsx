@@ -86,27 +86,13 @@ export const BeeperCliDemo: React.FC = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
-  // Animated gradient angle
-  const gradientAngle = interpolate(frame, [0, durationInFrames], [135, 225]);
-
   return (
     <AbsoluteFill
       style={{
-        background: `
-          radial-gradient(ellipse at 30% 20%, ${COLORS.purple}30 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 80%, ${COLORS.cyan}25 0%, transparent 40%),
-          linear-gradient(${gradientAngle}deg,
-            ${COLORS.gradientStart} 0%,
-            ${COLORS.gradientEnd} 100%
-          )
-        `,
+        background: COLORS.gradientStart,
         fontFamily: FONT_FAMILY,
       }}
     >
-      {/* Floating orbs for visual effect */}
-      <FloatingOrb x={15} y={20} size={300} color={COLORS.purple} opacity={0.15} speed={0.015} frame={frame} />
-      <FloatingOrb x={80} y={70} size={250} color={COLORS.cyan} opacity={0.12} speed={0.02} frame={frame} />
-      <FloatingOrb x={50} y={85} size={200} color={COLORS.yellow} opacity={0.08} speed={0.025} frame={frame} />
 
       {/* Title */}
       <div
@@ -126,7 +112,6 @@ export const BeeperCliDemo: React.FC = () => {
             color: COLORS.white,
             margin: 0,
             letterSpacing: "-0.02em",
-            textShadow: "0 2px 20px rgba(0, 0, 0, 0.3)",
           }}
         >
           Beeper API CLI
@@ -208,7 +193,6 @@ export const BeeperCliDemo: React.FC = () => {
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             opacity: sequenceOpacity,
-            textShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
           }}
         >
           {currentSequence.description}
@@ -237,7 +221,7 @@ export const BeeperCliDemo: React.FC = () => {
                   opacity: isActive ? 1 : 0.4,
                   transform: `scale(${dotScale})`,
                   transition: "width 0.3s ease",
-                  boxShadow: isActive ? `0 0 20px ${COLORS.cyan}` : "none",
+                  boxShadow: "none",
                 }}
               />
             );
@@ -245,48 +229,6 @@ export const BeeperCliDemo: React.FC = () => {
         </div>
       </div>
     </AbsoluteFill>
-  );
-};
-
-// Floating orb component
-interface FloatingOrbProps {
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-  opacity: number;
-  speed: number;
-  frame: number;
-}
-
-const FloatingOrb: React.FC<FloatingOrbProps> = ({
-  x,
-  y,
-  size,
-  color,
-  opacity,
-  speed,
-  frame,
-}) => {
-  const offsetX = Math.sin(frame * speed) * 20;
-  const offsetY = Math.cos(frame * speed * 0.7) * 15;
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: `${x}%`,
-        top: `${y}%`,
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: `radial-gradient(circle at 30% 30%, ${color}, transparent)`,
-        opacity,
-        transform: `translate(${offsetX}px, ${offsetY}px)`,
-        filter: "blur(60px)",
-        pointerEvents: "none",
-      }}
-    />
   );
 };
 
