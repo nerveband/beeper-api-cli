@@ -70,6 +70,35 @@ api_url: http://localhost:39867
 output_format: json  # json, text, markdown
 ```
 
+### Configuration Fields
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `api_url` | string | `http://localhost:39867` | Beeper Desktop API endpoint URL |
+| `output_format` | string | `json` | Default output format: `json`, `text`, or `markdown` |
+
+### Environment Variables
+
+Environment variables override config file settings:
+
+| Variable | Description |
+|----------|-------------|
+| `BEEPER_API_URL` | Override API URL |
+| `BEEPER_OUTPUT_FORMAT` | Override output format |
+| `BEEPER_TOKEN` | API authentication token (required for most operations) |
+
+### Authentication
+
+Generate an API token in Beeper Desktop settings and set it as an environment variable:
+
+```bash
+export BEEPER_TOKEN="your-token-here"
+```
+
+Token permissions:
+- **read**: Access messages, chats, and accounts
+- **write**: Send messages, archive chats, set reminders
+
 ## API Coverage
 
 ### Read Operations
@@ -200,6 +229,66 @@ go test ./...
 # Cross-compile
 ./build.sh
 ```
+
+## For LLMs and Automated Agents
+
+This CLI is designed for programmatic access by LLMs and automation tools.
+
+### Recommended Workflow
+
+1. **Check connectivity**: `beeper info` to verify API is reachable
+2. **Test permissions**: `beeper info --test-permissions` to verify token works
+3. **List chats**: `beeper chats list -o json` to get available chat IDs
+4. **Read messages**: `beeper messages list --chat-id <ID> -o json`
+5. **Send messages**: `beeper send --chat-id <ID> --message "text"`
+
+### Error Handling
+
+Use `--json-errors` for machine-readable error output:
+
+```bash
+beeper chats list --json-errors 2>&1
+```
+
+Error JSON format:
+```json
+{
+  "error": "error message",
+  "code": "error_code",
+  "category": "auth|config|permission|not_found|network|validation|server|unknown",
+  "operation": "operation_name",
+  "hint": "actionable suggestion"
+}
+```
+
+### Updating
+
+The CLI checks for updates automatically and notifies when a new version is available. To upgrade:
+
+```bash
+beeper upgrade
+```
+
+Use `--quiet` to suppress update notifications in automated environments.
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "connection refused" | Start Beeper Desktop and enable API |
+| "unauthorized" | Set `BEEPER_TOKEN` environment variable |
+| "not found" | Verify chat/message ID with `beeper chats list` |
+| "timeout" | Check network, restart Beeper Desktop |
+
+Run `beeper info` for diagnostic information.
+
+## Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | User/Application error (invalid arguments, missing resources, permission denied) |
+| 2 | System/Network error (connection failed, timeout, server error) |
 
 ## Requirements
 

@@ -5,6 +5,7 @@ import (
 	"runtime"
 
 	"github.com/spf13/cobra"
+	"github.com/nerveband/beeper-api-cli/internal/config"
 )
 
 var versionCmd = &cobra.Command{
@@ -15,6 +16,7 @@ var versionCmd = &cobra.Command{
 		fmt.Printf("beeper-api-cli version %s\n", Version)
 		fmt.Printf("  Go version: %s\n", runtime.Version())
 		fmt.Printf("  OS/Arch:    %s/%s\n", runtime.GOOS, runtime.GOARCH)
+		fmt.Printf("  Config:     %s\n", config.GetConfigPath())
 	},
 }
 

@@ -10,14 +10,35 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Manage configuration",
-	Long:  `View and modify Beeper CLI configuration settings.`,
+	Long: `View and modify Beeper CLI configuration settings.
+
+Configuration File:
+  Location: ~/.beeper-api-cli/config.yaml
+
+Configuration Fields:
+  api_url        The Beeper Desktop API URL (default: http://localhost:39867)
+  output_format  Default output format: json, text, or markdown (default: json)
+
+Environment Variables (override config file):
+  BEEPER_API_URL        Override api_url
+  BEEPER_OUTPUT_FORMAT  Override output_format
+  BEEPER_TOKEN          API authentication token (required for most operations)
+
+Example config.yaml:
+  api_url: http://localhost:39867
+  output_format: json
+
+Manual Editing:
+  You can edit the config file directly with any text editor.
+  Changes take effect on the next command execution.`,
 }
 
 var configShowCmd = &cobra.Command{
 	Use:   "show",
 	Short: "Display current configuration",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Printf("API URL: %s\n", cfg.APIURL)
+		fmt.Printf("Config File:   %s\n", config.GetConfigPath())
+		fmt.Printf("API URL:       %s\n", cfg.APIURL)
 		fmt.Printf("Output Format: %s\n", cfg.OutputFormat)
 		return nil
 	},

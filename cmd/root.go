@@ -8,11 +8,15 @@ import (
 	"github.com/nerveband/beeper-api-cli/internal/api"
 	"github.com/nerveband/beeper-api-cli/internal/config"
 	"github.com/nerveband/beeper-api-cli/internal/output"
+	"github.com/nerveband/beeper-api-cli/internal/update"
 )
 
 var (
-	cfg          *config.Config
-	outputFormat string
+	cfg           *config.Config
+	outputFormat  string
+	quietMode     bool
+	jsonErrors    bool
+	updateCheckCh <-chan *update.UpdateInfo
 	// Version is set at build time via ldflags
 	Version = "dev"
 )
@@ -37,19 +41,51 @@ var rootCmd = &cobra.Command{
 			cfg.OutputFormat = outputFormat
 		}
 
+		// Start async update check (skip for version, upgrade, and help commands)
+		cmdName := cmd.Name()
+		if !quietMode && cmdName != "version" && cmdName != "upgrade" && cmdName != "help" {
+			updateCheckCh = update.CheckAsync(Version)
+		}
+
 		return nil
+	},
+	PersistentPostRun: func(cmd *cobra.Command, args []string) {
+		// Display update notification if available
+		if updateCheckCh != nil && !quietMode {
+			select {
+			case info := <-updateCheckCh:
+				if notice := update.FormatUpdateNotice(info); notice != "" {
+					fmt.Fprint(os.Stderr, notice)
+				}
+			default:
+				// Don't block if check hasn't completed
+			}
+		}
 	},
 }
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		exitWithError(err)
 	}
 }
 
+// helpFooter contains documentation links shown at the bottom of help output
+const helpFooter = `
+Documentation & Support:
+  GitHub:  https://github.com/nerveband/beeper-api-cli
+  Issues:  https://github.com/nerveband/beeper-api-cli/issues
+  API:     https://github.com/nerveband/beeper-api-cli/blob/main/API.md
+`
+
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "", "Output format (json, text, markdown)")
+	rootCmd.PersistentFlags().BoolVarP(&quietMode, "quiet", "q", false, "Suppress non-essential output (hints, update notifications)")
+	rootCmd.PersistentFlags().BoolVar(&jsonErrors, "json-errors", false, "Output errors as JSON to stderr")
+
+	// Add help footer with documentation links
+	defaultUsageTemplate := rootCmd.UsageTemplate()
+	rootCmd.SetUsageTemplate(defaultUsageTemplate + helpFooter)
 }
 
 // getOutputFormat returns the configured output format
