@@ -26,3 +26,6 @@ Thumbs.db
 
 # Config (personal)
 .beeper-cli/
+
+# Git worktrees
+.worktrees/
