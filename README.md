@@ -46,7 +46,7 @@ go install github.com/nerveband/beeper-api-cli@latest
 beeper discover
 
 # Or manually configure
-beeper config set-url http://localhost:39867
+beeper config set-url http://localhost:23373
 
 # List all chats
 beeper chats list
@@ -66,7 +66,7 @@ beeper search --query "important meeting"
 The CLI stores configuration in `~/.beeper-api-cli/config.yaml`:
 
 ```yaml
-api_url: http://localhost:39867
+api_url: http://localhost:23373
 output_format: json  # json, text, markdown
 ```
 
@@ -74,7 +74,7 @@ output_format: json  # json, text, markdown
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `api_url` | string | `http://localhost:39867` | Beeper Desktop API endpoint URL |
+| `api_url` | string | `http://localhost:23373` | Beeper Desktop API endpoint URL |
 | `output_format` | string | `json` | Default output format: `json`, `text`, or `markdown` |
 
 ### Environment Variables
@@ -293,7 +293,7 @@ Run `beeper info` for diagnostic information.
 ## Requirements
 
 - Beeper Desktop application installed and running
-- API server enabled (default: http://localhost:39867)
+- API server enabled (default: http://localhost:23373)
 
 ## License
 
